@@ -1,24 +1,35 @@
+/* eslint-disable import/no-anonymous-default-export */
 import React from "react";
 
-import './Intervalo.css'
+import "./Intervalo.css";
 import Card from "./Card";
+import { connect } from "react-redux";
 
-export default props =>{
-    const {min, max} = props
-    return (
-        
-        <Card title='Intervalo de Números' Blue>
-            <div className="Intervalo">
-                <span>
-                    <strong>Mínimo:</strong>
-                    <input type="number" value={min} onChange={ e => props.onMinChanged(+e.target.value)}/>
-                </span>
+const Intervalo = (props) => {
+  const { min, max } = props;
 
-                <span>
-                    <strong>Máximo:</strong>
-                    <input type="number" value={max} onChange={ e => props.onMaxChanged(+e.target.value)}/>
-                </span>
-            </div>
-        </Card>
-    )
+  return (
+    <Card title="Intervalo de Números" Blue>
+      <div className="Intervalo">
+        <span>
+          <strong>Mínimo:</strong>
+          <input type="number" value={min} readOnly />
+        </span>
+
+        <span>
+          <strong>Máximo:</strong>
+          <input type="number" value={max} readOnly />
+        </span>
+      </div>
+    </Card>
+  );
+};
+
+function mapStateToProps(state) {
+  return {
+    min: state.numeros.min,
+    max: state.numeros.max,
+  };
 }
+
+export default connect(mapStateToProps)(Intervalo);
